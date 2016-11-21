@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:mvc="http://www.springframework.org/schema/mvc"
+ xmlns:tx="http://www.springframework.org/schema/tx"
+ xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:security="http://www.springframework.org/schema/security"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/mvc 
+ http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+ http://www.springframework.org/schema/beans 
+ http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+ http://www.springframework.org/schema/tx
+ http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+ http://www.springframework.org/schema/data/jpa
+ http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
+ http://www.springframework.org/schema/context 
+ http://www.springframework.org/schema/context/spring-context-4.3.xsd
+ http://www.springframework.org/schema/security
+ http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+    <context:component-scan base-package="pl.maciejk" />
+    <context:annotation-config />
+	<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled" />
+	<jpa:repositories base-package="pl.maciejk"/>
+	<tx:annotation-driven />
+	<mvc:annotation-driven />
+    
+    <bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/views/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="pl.maciejk" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="false" />
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+			</bean>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+		
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+		
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+</beans>

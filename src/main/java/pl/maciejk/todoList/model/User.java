@@ -16,25 +16,32 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Column(length = 40, nullable = false)
 	private String firstName;
-	
+
+	@Column(length = 40)
 	private String lastName;
 	
-	@Column(unique = true)
+	@Column(unique = true, nullable = false, length = 30)
 	private String login;
-	
+
+	@Column(length = 60, nullable = false)
 	private String password;
-	
+
+	@Column(nullable = false)
 	private boolean enabled;
 	
-	@Column(unique = true)
+	@Column(unique = true, nullable = false, length = 60)
 	private String email;
-	
+
+	@Column(length = 15)
 	private String phoneNumber;
-	
+
+	@Column(length = 20, nullable = false)
 	private String role;
 	
+	@Column(nullable = false)
 	private Date signUpDate;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

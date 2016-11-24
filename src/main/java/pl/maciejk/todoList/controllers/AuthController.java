@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.maciejk.todoList.dto.SignUpDto;
 import pl.maciejk.todoList.model.User;
 import pl.maciejk.todoList.services.UserService;
+import pl.maciejk.todoList.utils.BCryptEncoder;
 
 @Controller
 public class AuthController {
@@ -42,7 +43,7 @@ public class AuthController {
 			user.setLastName(form.getLastName());
 			user.setLogin(form.getLogin());
 			user.setEmail(form.getEmail());
-			user.setPassword(form.getPassword());
+			user.setPassword(BCryptEncoder.encode(form.getPassword()));
 			user.setEnabled(true);
 			user.setPhoneNumber(form.getPhoneNumber());
 			user.setRole("ROLE_USER");

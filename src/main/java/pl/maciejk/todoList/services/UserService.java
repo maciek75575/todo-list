@@ -23,6 +23,7 @@ public class UserService {
 	}
 	
 	public void userAdd(User user) {
+		System.out.println(user.getFirstName());
 		iUserDao.save(user);
 	}
 	

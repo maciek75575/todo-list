@@ -11,4 +11,6 @@ import pl.maciejk.todoList.model.User;
 public interface IUserDao extends CrudRepository<User, Long> {
 	public List<User> findAll();
 	public User findById(Long id);
+	public User findByLogin(String login);
+	public User findByEmail(String email);
 }

@@ -1,8 +1,10 @@
 package pl.maciejk.todoList.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,8 +13,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.FetchMode;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+
 @Entity
-public class User {
+public class User implements Serializable {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -38,8 +45,8 @@ public class User {
 	@Column(length = 15)
 	private String phoneNumber;
 
-	@Column(length = 20, nullable = false)
-	private String role;
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	private List<Authority> authorities;
 	
 	@Column(nullable = false)
 	private Date signUpDate;
@@ -111,12 +118,12 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getRole() {
-		return role;
+	public List<Authority> getAuthorities() {
+		return authorities;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
 	}
 
 	public Date getSignUpDate() {

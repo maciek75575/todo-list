@@ -45,7 +45,7 @@
 			</tr>
 			<tr>
 				<td>Poziom uprawnień</td>
-				<td>${user.role}</td>
+				<td><c:forEach var="auth" items="${user.authorities}">${auth.authority} </c:forEach></td>
 			</tr>
 			<tr>
 				<td>Data rejestracji</td>

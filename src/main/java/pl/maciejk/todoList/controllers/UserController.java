@@ -15,7 +15,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@Secured({"ROLE_USER", "ROLE_ADMIN"})
+	@Secured({"ROLE_USER"})
 	@RequestMapping(value = "/users")
 	public String users(Model model) {
 		model.addAttribute("users", userService.userList());

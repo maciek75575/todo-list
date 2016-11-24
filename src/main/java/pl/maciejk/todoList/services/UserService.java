@@ -22,12 +22,25 @@ public class UserService {
 		return iUserDao.findById(id);
 	}
 	
+	public User userByLogin(String name) {
+		return iUserDao.findByLogin(name);
+	}
+	
 	public void userAdd(User user) {
-		System.out.println(user.getFirstName());
 		iUserDao.save(user);
 	}
 	
 	public void userRemove(Long id) {
 		iUserDao.delete(id);
+	}
+	
+	public boolean isLoginOccupied(String login) {
+		if (iUserDao.findByLogin(login) == null) return false;
+		else return true;
+	}
+	
+	public boolean isEmailOccupied(String email) {
+		if (iUserDao.findByEmail(email) == null) return false;
+		else return true;
 	}
 }

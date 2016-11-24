@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import pl.maciejk.todoList.dao.IUserDao;
 import pl.maciejk.todoList.dto.SignUpDto;
+import pl.maciejk.todoList.model.Authority;
 import pl.maciejk.todoList.model.User;
+import pl.maciejk.todoList.services.AuthorityService;
 import pl.maciejk.todoList.services.UserService;
 import pl.maciejk.todoList.utils.BCryptEncoder;
 
@@ -22,6 +25,9 @@ public class AuthController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AuthorityService authorityService;
 	
 	@ModelAttribute("formSignUp")
 	public SignUpDto getForm() {
@@ -35,7 +41,11 @@ public class AuthController {
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signUp(@ModelAttribute("formSignUp") @Valid SignUpDto form, BindingResult result) {
-		if (result.hasErrors() || !(form.getPassword().equals(form.getRepeatPassword())) || !(form.getEmail().equals(form.getRepeatEmail())))
+		if (result.hasErrors() || 
+				!(form.getPassword().equals(form.getRepeatPassword())) || 
+				!(form.getEmail().equals(form.getRepeatEmail())) || 
+				userService.isLoginOccupied(form.getLogin()) || 
+				userService.isEmailOccupied(form.getEmail()))
 			return "signup";
 		else {
 			User user = new User();
@@ -46,11 +56,17 @@ public class AuthController {
 			user.setPassword(BCryptEncoder.encode(form.getPassword()));
 			user.setEnabled(true);
 			user.setPhoneNumber(form.getPhoneNumber());
-			user.setRole("ROLE_USER");
 			ZonedDateTime zdt = ZonedDateTime.now();
 			Date date = Date.from(zdt.toInstant());
 			user.setSignUpDate(date);
 			userService.userAdd(user);
+			
+			user = userService.userByLogin(form.getLogin());
+			Authority auth = new Authority();
+			auth.setAuthority("ROLE_USER");
+			auth.setUser(user);
+			authorityService.authorityAdd(auth);
+			
 			return "redirect:/";
 		}
 	}

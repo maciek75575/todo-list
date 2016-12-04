@@ -12,10 +12,6 @@
 	<table border=1>
 		<tbody>
 			<tr>
-				<td>Id</td>
-				<td>${user.id}</td>
-			</tr>
-			<tr>
 				<td>Imie</td>
 				<td>${user.firstName}</td>
 			</tr>
@@ -45,17 +41,20 @@
 			</tr>
 			<tr>
 				<td>Poziom uprawnień</td>
-				<td><c:forEach var="auth" items="${user.authorities}">${auth.authority} </c:forEach></td>
+				<td>
+					<c:forEach var="auth" items="${user.authorities}">${auth.authority} </c:forEach>
+				</td>
 			</tr>
 			<tr>
 				<td>Data rejestracji</td>
 				<td>${user.signUpDate}</td>
 			</tr>
 			<tr>
-				<td colspan="2"><a href="userRemove-${user.id}">Usuń użytkownika</a></td>
+				<td><a href="update">Zmień dane</a></td>
+				<td><a href="changePassword">Zmień hasło</a></td>
 			</tr>
 			<tr>
-				<td colspan="2"><a href="users">Lista użytkowników</a></td>
+				<td colspan="2"><a href="..">Strona główna.</a></td>
 			</tr>
 		</tbody>
 	</table>

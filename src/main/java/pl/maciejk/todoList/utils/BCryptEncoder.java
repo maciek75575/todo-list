@@ -8,4 +8,9 @@ public class BCryptEncoder {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		return passwordEncoder.encode(password);
 	}
+	
+	public static boolean check(String rawPassword, String encodedPassword) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder.matches(rawPassword, encodedPassword);
+	}
 }

@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class SignUpDto {
+public class UserEditDto {
 	
 	@NotEmpty
 	@Size(min = 1, max = 40)
@@ -17,27 +17,16 @@ public class SignUpDto {
 	@NotEmpty
 	@Size(min = 1, max = 30)
 	private String login;
-
-	@NotEmpty
-	@Size(min = 6, max = 30)
-	private String password;
-
-	@NotEmpty
-	@Size(min = 6, max = 30)
-	private String repeatPassword;
-
+	
 	@NotEmpty
 	@Email
 	@Size(min = 3, max = 60)
 	private String email;
 
-	@NotEmpty
-	@Email
-	@Size(min = 3, max = 60)
-	private String repeatEmail;
-	
 	@Size(max = 15)
 	private String phoneNumber;
+	
+	private boolean enabled;
 
 	public String getFirstName() {
 		return firstName;
@@ -63,36 +52,12 @@ public class SignUpDto {
 		this.login = login;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getRepeatPassword() {
-		return repeatPassword;
-	}
-
-	public void setRepeatPassword(String repeatPassword) {
-		this.repeatPassword = repeatPassword;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getRepeatEmail() {
-		return repeatEmail;
-	}
-
-	public void setRepeatEmail(String repeatEmail) {
-		this.repeatEmail = repeatEmail;
 	}
 
 	public String getPhoneNumber() {
@@ -102,6 +67,13 @@ public class SignUpDto {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 	
 }

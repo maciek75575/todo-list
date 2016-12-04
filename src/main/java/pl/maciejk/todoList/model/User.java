@@ -12,13 +12,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import org.hibernate.FetchMode;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Fetch;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="user")
 public class User implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2556159545574078018L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,14 +48,26 @@ public class User implements Serializable {
 	@Column(length = 15)
 	private String phoneNumber;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Authority> authorities;
 	
 	@Column(nullable = false)
 	private Date signUpDate;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Task> tasks;
+	
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
+	private List<UserCategory> categories;
+	
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
+	private List<SharedTask> sharedTasks;
+	
+	@OneToMany(mappedBy = "invitingUser", fetch = FetchType.LAZY)
+	private List<Friendship> invitedUsers;
+	
+	@OneToMany(mappedBy = "invitedUser", fetch = FetchType.LAZY)
+	private List<Friendship> invitations;
 
 	public Long getId() {
 		return id;
@@ -141,4 +156,13 @@ public class User implements Serializable {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
+
+	public List<UserCategory> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<UserCategory> categories) {
+		this.categories = categories;
+	}
+	
 }

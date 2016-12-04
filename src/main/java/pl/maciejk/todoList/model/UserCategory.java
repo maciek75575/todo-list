@@ -1,7 +1,5 @@
 package pl.maciejk.todoList.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,24 +10,27 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="authority")
-public class Authority implements Serializable{
+@Table(name="userCategory")
+public class UserCategory {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 100000697296827823L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(length = 100, nullable = false)
+	private String name;
+	
+	@Column(length = 100)
+	private String color;
+	
 	@ManyToOne
-	@JoinColumn(name = "user_login", referencedColumnName = "login")
+    @JoinColumn(name = "user_id")
 	private User user;
-
-	@Column(length = 20, nullable = false)
-	private String authority;
+	
+	@ManyToOne
+    @JoinColumn(name = "category_id")
+	private Category category;
 
 	public Long getId() {
 		return id;
@@ -37,6 +38,22 @@ public class Authority implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public User getUser() {
@@ -47,13 +64,12 @@ public class Authority implements Serializable{
 		this.user = user;
 	}
 
-	public String getAuthority() {
-		return authority;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setAuthority(String authority) {
-		this.authority = authority;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
-	
 	
 }

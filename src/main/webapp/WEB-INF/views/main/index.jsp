@@ -14,6 +14,9 @@
 		<a href="signup">Zarejestruj</a><br>
 		<a href="login">Zaloguj</a>
 	</sec:authorize>
+	<c:if test="${pageContext.request.userPrincipal.name != null}">
+		<a href="user/profile">Profile</a>
+	</c:if>
 	<c:url value="/logout" var="logoutUrl" />
 	<form id="logout" action="${logoutUrl}" method="post">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -21,6 +24,9 @@
 	<c:if test="${pageContext.request.userPrincipal.name != null}">
 		<a href="javascript:document.getElementById('logout').submit()">Wyloguj</a><br>
 	</c:if>
-	<a href="users">Lista użytkowników</a>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<a href="admin/userList">Lista użytkowników</a>
+	</sec:authorize>
+	<br/><a href="testMail">Emailuj</a>
 </body>
 </html>

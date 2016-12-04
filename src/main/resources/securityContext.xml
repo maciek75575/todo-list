@@ -23,12 +23,17 @@ http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 		</authentication-provider>
 	</authentication-manager>
 
+	<beans:bean id="placeholderConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="location" value="classpath:application.properties" />
+	</beans:bean>
+	
 	<beans:bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<beans:property name="url" value="jdbc:mysql://localhost:3306/todo?UseUnicode=true&amp;characterEncoding=utf8" />
-		<beans:property name="username" value="root" />
-		<beans:property name="password" value="" />
+		<beans:property name="driverClassName" value="${dataSource.driverClassName}" />
+		<beans:property name="url" value="${dataSource.url}" />
+		<beans:property name="username" value="${dataSource.username}" />
+		<beans:property name="password" value="${dataSource.password}" />
 	</beans:bean>
 
 	<beans:bean id="encoder"

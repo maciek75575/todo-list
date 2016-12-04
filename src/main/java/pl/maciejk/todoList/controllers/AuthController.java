@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pl.maciejk.todoList.dao.IUserDao;
 import pl.maciejk.todoList.dto.SignUpDto;
 import pl.maciejk.todoList.model.Authority;
 import pl.maciejk.todoList.model.User;
@@ -36,7 +35,7 @@ public class AuthController {
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signUpForm() {
-		return "signup";
+		return "auth/signup";
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -46,7 +45,7 @@ public class AuthController {
 				!(form.getEmail().equals(form.getRepeatEmail())) || 
 				userService.isLoginOccupied(form.getLogin()) || 
 				userService.isEmailOccupied(form.getEmail()))
-			return "signup";
+			return "auth/signup";
 		else {
 			User user = new User();
 			user.setFirstName(form.getFirstName());
@@ -73,6 +72,6 @@ public class AuthController {
 	
 	@RequestMapping(value = "/login")
 	public String signIn() {
-		return "login";
+		return "auth/login";
 	}
 }

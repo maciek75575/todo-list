@@ -8,6 +8,6 @@ public class MainController {
 	
 	@RequestMapping(value = "/")
 	public String glowna() {
-		return "index";
+		return "main/index";
 	}
 }

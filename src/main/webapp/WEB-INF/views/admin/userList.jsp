@@ -24,11 +24,11 @@
 					<td>${user.id}</td>
 					<td>${user.firstName}</td>
 					<td>${user.login}</td>
-					<td><a href="user-${user.id}">Szczegóły</a></td>
+					<td><a href="userDetails-${user.id}">Szczegóły</a></td>
 				</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="4"><a href="/todo-list">Strona główna.</a></td>
+				<td colspan="4"><a href="..">Strona główna.</a></td>
 			</tr>
 		</tbody>
 	</table>

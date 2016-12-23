@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,19 +17,23 @@ import javax.persistence.Table;
 @Table(name="category")
 public class Category {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(length = 100, nullable = false)
 	private String name;
-	
-	@Column(length = 100, nullable = false)
-	private String color;
 
-	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-	private List<UserCategory> categories;
+	@ManyToOne
+    @JoinColumn(name = "color_id")
+	private CategoryColor categoryColor;
+
+	@ManyToOne
+    @JoinColumn(name = "user_id")
+	private User user;
+	
+    @OneToMany(mappedBy="category", fetch = FetchType.LAZY)  
+    private List<Task> tasks;
 
 	public Long getId() {
 		return id;
@@ -45,20 +51,29 @@ public class Category {
 		this.name = name;
 	}
 
-	public String getColor() {
-		return color;
+	public CategoryColor getCategoryColor() {
+		return categoryColor;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setCategoryColor(CategoryColor categoryColor) {
+		this.categoryColor = categoryColor;
 	}
 
-	public List<UserCategory> getCategories() {
-		return categories;
+	public User getUser() {
+		return user;
 	}
 
-	public void setCategories(List<UserCategory> categories) {
-		this.categories = categories;
+	public void setUser(User user) {
+		this.user = user;
 	}
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
 
 }

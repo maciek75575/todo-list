@@ -1,14 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>ToDo List</title>
-</head>
 
-<body>
+<%@include file="../mainHeader.jsp"%>
+
 	<form:form method="POST" modelAttribute="formUserEdit">
 		<table style="text-align: right;">
 			<tbody>
@@ -42,5 +37,5 @@
 			</tbody>
 		</table>
 	</form:form>
-</body>
-</html>
+
+<%@include file="../mainFooter.jsp"%>

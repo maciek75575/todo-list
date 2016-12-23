@@ -42,22 +42,32 @@ public class AdminController {
 
 	@RequestMapping(value = "/userDetails-{id}")
 	public String userDetails(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("user", userService.userById(id));
-		model.addAttribute("roleUser", authorityService.roleUser(userService.userById(id)));
-		model.addAttribute("roleAdmin", authorityService.roleAdmin(userService.userById(id)));
-		return "admin/userDetails";
+		if (!userService.doesExist(id))
+			return "redirect:/404";
+		else {
+			model.addAttribute("user", userService.userById(id));
+			model.addAttribute("roleUser", authorityService.roleUser(userService.userById(id)));
+			model.addAttribute("roleAdmin", authorityService.roleAdmin(userService.userById(id)));
+			return "admin/userDetails";
+		}
 	}
 
 	@RequestMapping(value = "/userEdit-{id}", method = RequestMethod.GET)
 	public String userEdit(@PathVariable("id") Long id, Model model) {
-		User user = userService.userById(id);
-		model.addAttribute("formUserEdit", user);
-		return "admin/userEdit";
+		if (!userService.doesExist(id))
+			return "redirect:/404";
+		else {
+			User user = userService.userById(id);
+			model.addAttribute("formUserEdit", user);
+			return "admin/userEdit";
+		}
 	}
 
 	@RequestMapping(value = "/userEdit-{id}", method = RequestMethod.POST)
 	public String userEdit(@PathVariable("id") Long id, @ModelAttribute("formUserEdit") @Valid UserEditDto form, BindingResult result) {
-		if (result.hasErrors())
+		if (!userService.doesExist(id))
+			return "redirect:/404";
+		else if (result.hasErrors())
 			return "admin/userEdit";
 		else {
 			User user = userService.userById(id);
@@ -77,8 +87,12 @@ public class AdminController {
 
 	@RequestMapping(value = "/userRemove-{id}")
 	public String userRemove(@PathVariable("id") Long id) {
-		userService.userRemove(id);
-		return "redirect:userList";
+		if (!userService.doesExist(id))
+			return "redirect:/404";
+		else {
+			userService.userRemove(id);
+			return "redirect:userList";
+		}
 	}
 	
 	@RequestMapping(value = "/authorityRemove-{userId}-{id}")

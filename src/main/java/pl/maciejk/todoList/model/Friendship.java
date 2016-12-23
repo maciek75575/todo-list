@@ -27,4 +27,37 @@ public class Friendship {
 	
     @Column(nullable = false)
     private boolean accepted;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getInvitingUser() {
+		return invitingUser;
+	}
+
+	public void setInvitingUser(User invitingUser) {
+		this.invitingUser = invitingUser;
+	}
+
+	public User getInvitedUser() {
+		return invitedUser;
+	}
+
+	public void setInvitedUser(User invitedUser) {
+		this.invitedUser = invitedUser;
+	}
+
+	public boolean isAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
+	}
+    
 }

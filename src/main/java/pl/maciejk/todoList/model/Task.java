@@ -1,8 +1,6 @@
 package pl.maciejk.todoList.model;
 
 import java.util.Date;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="task")
@@ -22,29 +21,35 @@ public class Task {
 	private Long id;
 	
 	@Column(nullable = false)
-	private Date startDate;
-
-	@Column(nullable = false)
-	private Date endDate;
+	private Date taskDate;
 	
 	@Column(nullable = false)
 	private Date addDate;
 	
-	@Column(nullable = false)
 	private Date editDate;
 	
 	@Column(length = 255, nullable = false)
 	private String title;
 
-	@Column(length = 1024)
+	@Column(length = 3000)
+	@Type(type = "text")
 	private String description;
-	
+
 	@ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
-    @OneToOne(cascade=CascadeType.REMOVE, mappedBy="task")  
-    private SharedTask sharedTask;
+	@ManyToOne
+    @JoinColumn(name = "category_id")
+	private Category category;
+
+	@Column(nullable = false)
+	private boolean important;
+
+	@Column(nullable = false)
+	private boolean completed;
+
+	private Date completionDate;
 
 	public Long getId() {
 		return id;
@@ -54,20 +59,12 @@ public class Task {
 		this.id = id;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public Date getTaskDate() {
+		return taskDate;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setTaskDate(Date taskDate) {
+		this.taskDate = taskDate;
 	}
 
 	public Date getAddDate() {
@@ -109,4 +106,37 @@ public class Task {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public boolean isImportant() {
+		return important;
+	}
+
+	public void setImportant(boolean important) {
+		this.important = important;
+	}
+
+	public boolean isCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
+	}
+
+	public Date getCompletionDate() {
+		return completionDate;
+	}
+
+	public void setCompletionDate(Date completionDate) {
+		this.completionDate = completionDate;
+	}
+
 }

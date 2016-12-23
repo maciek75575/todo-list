@@ -42,7 +42,7 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	private boolean enabled;
 	
-	@Column(unique = true, nullable = false, length = 60)
+	@Column(unique = true, nullable = false, length = 254)
 	private String email;
 
 	@Column(length = 15)
@@ -58,15 +58,12 @@ public class User implements Serializable {
 	private List<Task> tasks;
 	
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
-	private List<UserCategory> categories;
+	private List<Category> categories;
 	
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
-	private List<SharedTask> sharedTasks;
-	
-	@OneToMany(mappedBy = "invitingUser", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "invitingUser", fetch = FetchType.LAZY)
 	private List<Friendship> invitedUsers;
 	
-	@OneToMany(mappedBy = "invitedUser", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "invitedUser", fetch = FetchType.LAZY)
 	private List<Friendship> invitations;
 
 	public Long getId() {
@@ -157,12 +154,29 @@ public class User implements Serializable {
 		this.tasks = tasks;
 	}
 
-	public List<UserCategory> getCategories() {
+	public List<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<UserCategory> categories) {
+	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
-	
+
+	public List<Friendship> getInvitedUsers() {
+		return invitedUsers;
+	}
+
+	public void setInvitedUsers(List<Friendship> invitedUsers) {
+		this.invitedUsers = invitedUsers;
+	}
+
+	public List<Friendship> getInvitations() {
+		return invitations;
+	}
+
+	public void setInvitations(List<Friendship> invitations) {
+		this.invitations = invitations;
+	}
+
+
 }

@@ -28,12 +28,12 @@ public class SignUpDto {
 
 	@NotEmpty
 	@Email
-	@Size(min = 3, max = 60)
+	@Size(min = 3, max = 254)
 	private String email;
 
 	@NotEmpty
 	@Email
-	@Size(min = 3, max = 60)
+	@Size(min = 3, max = 254)
 	private String repeatEmail;
 	
 	@Size(max = 15)

@@ -11,7 +11,7 @@ http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 			authentication-failure-url="/login?error=1" username-parameter="login"
 			password-parameter="password" />
 		<logout logout-success-url="/" />
-		<csrf />
+		<csrf disabled="true"/>
 	</http>
 
 	<authentication-manager>

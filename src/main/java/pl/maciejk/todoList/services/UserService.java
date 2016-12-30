@@ -27,6 +27,10 @@ public class UserService {
 		return iUserDao.findByLogin(name);
 	}
 	
+	public User userByEmail(String email) {
+		return iUserDao.findByEmail(email);
+	}
+	
 	public void userAdd(User user) {
 		iUserDao.save(user);
 	}
@@ -57,6 +61,14 @@ public class UserService {
 	
 	public boolean doesExist(Long id) {
 		return (userById(id) != null);
+	}
+	
+	public boolean doesExist(String login) {
+		return (userByLogin(login) != null);
+	}
+	
+	public boolean doesEmailExist(String email) {
+		return (userByEmail(email) != null);
 	}
 	
 	public boolean isLoginOccupied(String login) {

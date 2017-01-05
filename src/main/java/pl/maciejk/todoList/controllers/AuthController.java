@@ -58,13 +58,13 @@ public class AuthController {
 			ZonedDateTime zdt = ZonedDateTime.now();
 			Date date = Date.from(zdt.toInstant());
 			user.setSignUpDate(date);
-			userService.userAdd(user);
+			userService.addOrUpdate(user);
 			
 			user = userService.userByLogin(form.getLogin());
 			Authority auth = new Authority();
 			auth.setAuthority("ROLE_USER");
 			auth.setUser(user);
-			authorityService.authorityAdd(auth);
+			authorityService.addOrUpdate(auth);
 			
 			return "redirect:/";
 		}

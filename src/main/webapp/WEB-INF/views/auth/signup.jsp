@@ -94,7 +94,7 @@
 	
 	<div class="row center-align">
 		<div class="input-field col s12">
-			<button class="btn waves-effect waves-light" onclick="checkForm();">
+			<button class="btn btn-flat waves-effect waves-green" onclick="checkForm();">
 				Zarejestruj<i class="material-icons right">send</i>
 			</button>
 		</div>

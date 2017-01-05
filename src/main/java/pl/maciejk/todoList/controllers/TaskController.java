@@ -64,14 +64,14 @@ public class TaskController {
 			task.setTitle(form.getTitle());
 			task.setDescription(form.getDescription());
 			task.setTaskDate(form.getTaskDate());
-			task.setCategory(categoryService.categoryById(form.getCategory()));
+			task.setCategory(categoryService.findById(form.getCategory()));
 			task.setUser(userService.userByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
 			ZonedDateTime zdt = ZonedDateTime.now();
 			Date date = Date.from(zdt.toInstant());
 			task.setCompleted(false);
 			task.setAddDate(date);
 			task.setImportant(form.isImportant());
-			taskService.taskAdd(task);
+			taskService.addOrUpdate(task);
 			return "redirect:/task";
 		}
 	}
@@ -80,11 +80,11 @@ public class TaskController {
 	public String editTask(@PathVariable("id") Long id, Model model) {
 		if (!taskService.doesExist(id))
 			return "redirect:/404";
-		else if (!userService.isLogged(taskService.taskById(id).getUser()))
+		else if (!userService.isLogged(taskService.findById(id).getUser()))
 			return "redirect:/403";
 		else {
 			model.addAttribute("categories", categoryService.categoryByUser(userService.userByLogin(SecurityContextHolder.getContext().getAuthentication().getName())));
-			model.addAttribute("formTask", taskService.taskById(id));
+			model.addAttribute("formTask", taskService.findById(id));
 			return "task/taskEdit";
 		}
 	}
@@ -93,24 +93,24 @@ public class TaskController {
 	public String editTask(@PathVariable("id") Long id, @ModelAttribute("formTask") @Valid TaskDto form, BindingResult result, Model model) {
 		if (!taskService.doesExist(id))
 			return "redirect:/404";
-		else if (!userService.isLogged(taskService.taskById(id).getUser()))
+		else if (!userService.isLogged(taskService.findById(id).getUser()))
 			return "redirect:/403";
 		else if (result.hasErrors()) {
 			model.addAttribute("categories", categoryService.categoryByUser(userService.userByLogin(SecurityContextHolder.getContext().getAuthentication().getName())));
-			model.addAttribute("formTask", taskService.taskById(id));
+			model.addAttribute("formTask", taskService.findById(id));
 			return "task/taskEdit";
 		}
 		else {
-			Task task = taskService.taskById(id);
+			Task task = taskService.findById(id);
 			task.setTitle(form.getTitle());
 			task.setDescription(form.getDescription());
 			task.setTaskDate(form.getTaskDate());
-			task.setCategory(categoryService.categoryById(form.getCategory()));
+			task.setCategory(categoryService.findById(form.getCategory()));
 			ZonedDateTime zdt = ZonedDateTime.now();
 			Date date = Date.from(zdt.toInstant());
 			task.setEditDate(date);
 			task.setImportant(form.isImportant());
-			taskService.taskAdd(task);
+			taskService.addOrUpdate(task);
 			return "redirect:/task";
 		}
 	}
@@ -119,10 +119,10 @@ public class TaskController {
 	public String removeTask(@PathVariable("id") Long id) {
 		if (!taskService.doesExist(id))
 			return "redirect:/404";
-		else if (!userService.isLogged(taskService.taskById(id).getUser()))
+		else if (!userService.isLogged(taskService.findById(id).getUser()))
 			return "redirect:/403";
 		else {
-			taskService.taskRemove(id);
+			taskService.delete(id);
 			return "redirect:/task";
 		}
 	}
@@ -131,7 +131,7 @@ public class TaskController {
 	public String completeTask(@PathVariable("id") Long id) {
 		if (!taskService.doesExist(id))
 			return "redirect:/404";
-		else if (!userService.isLogged(taskService.taskById(id).getUser()))
+		else if (!userService.isLogged(taskService.findById(id).getUser()))
 			return "redirect:/403";
 		else {
 			taskService.completeTask(id);

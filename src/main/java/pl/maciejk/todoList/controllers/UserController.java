@@ -59,7 +59,7 @@ public class UserController {
 			user.setFirstName(form.getFirstName());
 			user.setLastName(form.getLastName());
 			user.setPhoneNumber(form.getPhoneNumber());
-			userService.userAdd(user);
+			userService.addOrUpdate(user);
 			return "redirect:profile";
 		}
 	}
@@ -77,7 +77,7 @@ public class UserController {
 			User user = userService.userByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 			if (!BCryptEncoder.check(form.getOldPassword(), user.getPassword())) return "userChangePassword";
 			user.setPassword(BCryptEncoder.encode(form.getNewPassword()));
-			userService.userAdd(user);
+			userService.addOrUpdate(user);
 			return "redirect:profile";
 		}
 	}

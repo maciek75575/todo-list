@@ -46,22 +46,22 @@ public class CategoryController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addCategory(Model model) {
-		model.addAttribute("colors", categoryColorService.categoryColorAll());
+		model.addAttribute("colors", categoryColorService.findAll());
 		return "/category/categoryAdd";
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addCategory(@ModelAttribute("formCategory") @Valid CategoryDto form, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			model.addAttribute("colors", categoryColorService.categoryColorAll());
+			model.addAttribute("colors", categoryColorService.findAll());
 			return "/category/categoryAdd";
 		}
 		else {
 			Category category = new Category();
 			category.setName(form.getName());
-			category.setCategoryColor(categoryColorService.categoryColorById(form.getCategoryColor()));
+			category.setCategoryColor(categoryColorService.findById(form.getCategoryColor()));
 			category.setUser(userService.userByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
-			categoryService.categoryAdd(category);
+			categoryService.addOrUpdate(category);
 			return "redirect:/category";
 		}
 	}
@@ -70,11 +70,11 @@ public class CategoryController {
 	public String editCategory(@PathVariable("id") Long id, Model model) {
 		if (!categoryService.doesExist(id))
 			return "redirect:/404";
-		if (!userService.isLogged(categoryService.categoryById(id).getUser()))
+		if (!userService.isLogged(categoryService.findById(id).getUser()))
 			return "redirect:/403";
 		else {
-			model.addAttribute("colors", categoryColorService.categoryColorAll());
-			model.addAttribute("formCategory", categoryService.categoryById(id));
+			model.addAttribute("colors", categoryColorService.findAll());
+			model.addAttribute("formCategory", categoryService.findById(id));
 			return "/category/categoryEdit";
 		}
 	}
@@ -83,18 +83,18 @@ public class CategoryController {
 	public String editCategory(@PathVariable("id") Long id, @ModelAttribute("formCategory") @Valid CategoryDto form, BindingResult result, Model model) {
 		if (!categoryService.doesExist(id))
 			return "redirect:/404";
-		if (!userService.isLogged(categoryService.categoryById(id).getUser()))
+		if (!userService.isLogged(categoryService.findById(id).getUser()))
 			return "redirect:/403";
 		else if (result.hasErrors()) {
-			model.addAttribute("colors", categoryColorService.categoryColorAll());
-			model.addAttribute("formCategory", categoryService.categoryById(id));
+			model.addAttribute("colors", categoryColorService.findAll());
+			model.addAttribute("formCategory", categoryService.findById(id));
 			return "/category/categoryEdit";
 		}
 		else {
-			Category category = categoryService.categoryById(id);
+			Category category = categoryService.findById(id);
 			category.setName(form.getName());
-			category.setCategoryColor(categoryColorService.categoryColorById(form.getCategoryColor()));
-			categoryService.categoryAdd(category);
+			category.setCategoryColor(categoryColorService.findById(form.getCategoryColor()));
+			categoryService.addOrUpdate(category);
 			return "redirect:/category";
 		}
 	}
@@ -103,10 +103,10 @@ public class CategoryController {
 	public String removeCategory(@PathVariable("id") Long id) {
 		if (!categoryService.doesExist(id))
 			return "redirect:/404";
-		else if (!userService.isLogged(categoryService.categoryById(id).getUser()))
+		else if (!userService.isLogged(categoryService.findById(id).getUser()))
 			return "redirect:/403";
 		else {
-			categoryService.categoryRemove(id);
+			categoryService.delete(id);
 			return "redirect:/category";
 		}
 	}

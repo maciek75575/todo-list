@@ -31,7 +31,7 @@ public class CategoryColorController {
 	
 	@RequestMapping(value = "")
 	public String categoryColor(Model model) {
-		model.addAttribute("categoryColors", categoryColorService.categoryColorAll());
+		model.addAttribute("categoryColors", categoryColorService.findAll());
 		return "/categoryColor/categoryColor";
 	}
 	
@@ -51,7 +51,7 @@ public class CategoryColorController {
 			categoryColor.setSecondaryColor(form.getSecondaryColor());
 			categoryColor.setSecondaryCode(form.getSecondaryCode());
 			categoryColor = categoryColorService.addMissingHashes(categoryColor);
-			categoryColorService.categoryColorAdd(categoryColor);
+			categoryColorService.addOrUpdate(categoryColor);
 			return "redirect:/catColor";
 		}
 	}
@@ -61,7 +61,7 @@ public class CategoryColorController {
 		if (!categoryColorService.doesExist(id))
 			return "redirect:/404";
 		else {
-			model.addAttribute("formCategoryColor", categoryColorService.categoryColorById(id));
+			model.addAttribute("formCategoryColor", categoryColorService.findById(id));
 			return "/categoryColor/categoryColorEdit";
 		}
 	}
@@ -73,13 +73,13 @@ public class CategoryColorController {
 		else if (result.hasErrors())
 			return "/categoryColor/categoryColorEdit";
 		else {
-			CategoryColor categoryColor = categoryColorService.categoryColorById(id);
+			CategoryColor categoryColor = categoryColorService.findById(id);
 			categoryColor.setPrimaryColor(form.getPrimaryColor());
 			categoryColor.setPrimaryCode(form.getPrimaryCode());
 			categoryColor.setSecondaryColor(form.getSecondaryColor());
 			categoryColor.setSecondaryCode(form.getSecondaryCode());
 			categoryColor = categoryColorService.addMissingHashes(categoryColor);
-			categoryColorService.categoryColorAdd(categoryColor);
+			categoryColorService.addOrUpdate(categoryColor);
 			return "redirect:/catColor";
 		}
 	}
@@ -88,7 +88,7 @@ public class CategoryColorController {
 	public String removeCategoryColor(@PathVariable("id") Long id) {
 		if (!categoryColorService.doesExist(id)) return "redirect:/404";
 		else {
-			categoryColorService.categoryColorRemove(id);
+			categoryColorService.delete(id);
 			return "redirect:/catColor";
 		}
 	}

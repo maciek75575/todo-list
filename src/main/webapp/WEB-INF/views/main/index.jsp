@@ -1,32 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>ToDo List</title>
-</head>
 
-<body>
-	<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
-		<a href="signup">Zarejestruj</a><br>
-		<a href="login">Zaloguj</a>
-	</sec:authorize>
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<a href="user/profile">Profile</a>
-	</c:if>
-	<c:url value="/logout" var="logoutUrl" />
-	<form id="logout" action="${logoutUrl}" method="post">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	</form>
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<a href="javascript:document.getElementById('logout').submit()">Wyloguj</a><br>
-	</c:if>
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<a href="admin/userList">Lista użytkowników</a>
-	</sec:authorize>
-	<br/><a href="testMail">Emailuj</a>
-</body>
-</html>
+<%@include file="../mainHeader.jsp"%>
+
+<div class="row">
+	<div class="col s12 m12 l8 offset-l2">
+		<div class="card horizontal">
+			<div class="card-image hide-on-small-only">
+				<img src="/img/main_card.gif">
+				<span class="card-title">Witaj</span>
+			</div>
+      		<div class="card-stacked">
+				<div class="card-content">
+					<p>I am a very simple card. I am good at containing small bits
+						of information. I am convenient because I require little markup to
+						use effectively.</p>
+						
+				<%@include file="../auth/loginForm.jsp"%>
+				</div>
+				<div class="card-action">
+					<a href="#">This is a link</a>
+					<a href="#">This is a link</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%@include file="../mainFooter.jsp"%>

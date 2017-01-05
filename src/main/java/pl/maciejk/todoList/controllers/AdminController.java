@@ -36,7 +36,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/userList")
 	public String users(Model model) {
-		model.addAttribute("users", userService.userList());
+		model.addAttribute("users", userService.findAll());
 		return "admin/userList";
 	}
 
@@ -45,9 +45,9 @@ public class AdminController {
 		if (!userService.doesExist(id))
 			return "redirect:/404";
 		else {
-			model.addAttribute("user", userService.userById(id));
-			model.addAttribute("roleUser", authorityService.roleUser(userService.userById(id)));
-			model.addAttribute("roleAdmin", authorityService.roleAdmin(userService.userById(id)));
+			model.addAttribute("user", userService.findById(id));
+			model.addAttribute("roleUser", authorityService.roleUser(userService.findById(id)));
+			model.addAttribute("roleAdmin", authorityService.roleAdmin(userService.findById(id)));
 			return "admin/userDetails";
 		}
 	}
@@ -57,7 +57,7 @@ public class AdminController {
 		if (!userService.doesExist(id))
 			return "redirect:/404";
 		else {
-			User user = userService.userById(id);
+			User user = userService.findById(id);
 			model.addAttribute("formUserEdit", user);
 			return "admin/userEdit";
 		}
@@ -70,7 +70,7 @@ public class AdminController {
 		else if (result.hasErrors())
 			return "admin/userEdit";
 		else {
-			User user = userService.userById(id);
+			User user = userService.findById(id);
 			if (!user.getLogin().equals(form.getLogin()) && (userService.isLoginOccupied(form.getLogin()))) return "userEdit";
 			if (!user.getEmail().equals(form.getEmail()) && (userService.isEmailOccupied(form.getEmail()))) return "userEdit";
 			
@@ -80,7 +80,7 @@ public class AdminController {
 			user.setEmail(form.getEmail());
 			user.setPhoneNumber(form.getPhoneNumber());
 			user.setEnabled(form.isEnabled());
-			userService.userAdd(user);
+			userService.addOrUpdate(user);
 			return "redirect:userDetails-{id}";
 		}
 	}
@@ -90,24 +90,24 @@ public class AdminController {
 		if (!userService.doesExist(id))
 			return "redirect:/404";
 		else {
-			userService.userRemove(id);
+			userService.delete(id);
 			return "redirect:userList";
 		}
 	}
 	
 	@RequestMapping(value = "/authorityRemove-{userId}-{id}")
 	public String authorityRemove(@PathVariable("userId") Long userId, @PathVariable("id") Long id) {
-		authorityService.authorityRemove(id);
+		authorityService.delete(id);
 		return "redirect:userDetails-{userId}";
 	}
 	
 	@RequestMapping(value = "/authorityAdd-{userId}-{authority}")
 	public String authorityAdd(@PathVariable("userId") Long userId, @PathVariable("authority") String authority) {
-		User user = userService.userById(userId);
+		User user = userService.findById(userId);
 		Authority auth = new Authority();
 		auth.setAuthority(authority);
 		auth.setUser(user);
-		authorityService.authorityAdd(auth);
+		authorityService.addOrUpdate(auth);
 		return "redirect:userDetails-{userId}";
 	}
 }

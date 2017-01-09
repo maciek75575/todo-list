@@ -1,4 +1,4 @@
-$(document).ready(function() {
+function calendarInit(onlyFuture) {
 	$('.datepicker').pickadate({
 	    selectMonths: false,
 	    today: 'Dziś',
@@ -9,9 +9,9 @@ $(document).ready(function() {
 	    weekdaysFull: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
 	    weekdaysShort: ['Nd', 'Pn', 'Wt', 'Sr', 'Cz', 'Pi', 'Sb'],
 	    firstDay: 1,
-	    min: true,
+	    min: onlyFuture,
 	    format: 'dddd, dd mmmm yyyy',
 	    formatSubmit: 'yyyy/mm/dd',
 	    hiddenName: true
     });
-});
+};

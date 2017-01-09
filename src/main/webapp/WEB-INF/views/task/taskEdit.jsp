@@ -57,6 +57,8 @@
 <script src="/script/calendarInit.js"></script>
 <script>
 $(document).ready(function() {
+	calendarInit(true);
+	
 	var $input = $('.datepicker').pickadate();
 	var picker = $input.pickadate('picker');
 	var date = "${formTask.taskDate}";

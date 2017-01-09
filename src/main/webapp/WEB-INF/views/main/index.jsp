@@ -4,24 +4,24 @@
 <%@include file="../mainHeader.jsp"%>
 
 <div class="row">
-	<div class="col s12 m12 l8 offset-l2">
+	<div class="col s12 m10 offset-m1 l6 offset-l3">
 		<div class="card horizontal">
-			<div class="card-image hide-on-small-only">
-				<img src="/img/main_card.gif">
-				<span class="card-title">Witaj</span>
-			</div>
-      		<div class="card-stacked">
-				<div class="card-content">
-					<p>I am a very simple card. I am good at containing small bits
-						of information. I am convenient because I require little markup to
-						use effectively.</p>
+			<div class="card-stacked">
+				<form method="POST" action="/login">
+					<div class="card-content center-align">
+						<h5>Witaj na stronie internetowej listy rzeczy do zrobienia.</h5>
+						Aby kontynuować zaloguj się lub załóż konto.
+						<div class="row"></div>
 						
-				<%@include file="../auth/loginForm.jsp"%>
-				</div>
-				<div class="card-action">
-					<a href="#">This is a link</a>
-					<a href="#">This is a link</a>
-				</div>
+						<%@include file="../auth/loginForm.jsp"%>
+						
+						<button class="hidden" id="submitButton" type="submit" name="submit"></button>
+					</div>
+					<div class="card-action">
+						<a class="green-text" href="/signup">Zarejestruj</a>
+						<a class="right green-text" style="margin:0px; cursor:pointer;" onclick="$('#submitButton').click();">Zaloguj</a>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

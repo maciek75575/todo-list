@@ -112,7 +112,7 @@
 </div>
 
 <div class="fixed-action-btn">
-	<a class="btn-floating btn-large waves-effect waves-light blue darken-2" onclick="javascript:$('#helpModal').modal('open');">
+	<a class="btn-floating btn-large waves-effect waves-light blue darken-2 tooltipped" onclick="javascript:$('#helpModal').modal('open');" data-position="left" data-delay="50" data-tooltip="Pomoc">
 		<i class="material-icons light-blue-text text-lighten-4" style="font-size: 40px;">help_outline</i>
 	</a>
 </div>

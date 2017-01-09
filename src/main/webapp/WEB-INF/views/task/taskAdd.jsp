@@ -58,9 +58,12 @@
 <script src="/script/calendarInit.js"></script>
 <script>
 $(document).ready(function() {
+	calendarInit(true);
+	
 	$('.checkbox_wrapper').each(function() {
 		$(':checkbox', this).after($('label', this));
 	});
+	
     $('select').material_select();
 });
 </script>

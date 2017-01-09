@@ -45,7 +45,7 @@
 							<li><a href="/login">Logowanie</a></li>
 						</sec:authorize>
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<li><a class="dropdown-button" data-activates="dropdown1"><i class="material-icons left">settings</i>Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+							<li><a class="dropdown-button" data-activates="dropdown1"><i class="material-icons left">settings</i>Admin<i class="material-icons right">arrow_drop_down</i></a></li>
 						</sec:authorize>
 						<c:if test="${pageContext.request.userPrincipal.name != null}">
 							<li><a href="/user/profile"><i class="material-icons left">account_circle</i>Profil</a></li>

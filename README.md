@@ -5,3 +5,5 @@ https://t0d0list.herokuapp.com/
 |----------------|-------|--------|
 | Użytkownik     | user  | user12 |
 | Administrator  | admin | admin1 |
+
+![Alt text](erd.png?raw=true "ERD")

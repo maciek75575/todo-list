@@ -1,34 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>ToDo List</title>
-</head>
 
-<body>
-	<form:form method="POST" modelAttribute="formUserUpdate">
-		<table style="text-align: right;">
-			<tbody>
-				<tr>
-					<td>Imię:</td>
-					<td><form:input type="text" path="firstName" name="firstName" /></td>
-				</tr>
-				<tr>
-					<td>Nazwisko:</td>
-					<td><form:input type="text" path="lastName" name="lastName" /></td>
-				</tr>
-				<tr>
-					<td>Telefon:</td>
-					<td><form:input type="text" path="phoneNumber" name="phoneNumber" /></td>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="submit" value="Zmień" /></td>
-				</tr>
-			</tbody>
-		</table>
+<%@include file="../mainHeader.jsp"%>
+
+<div class="row">
+	<form:form class="col s12 m12 l10 offset-l1" id="formUserUpdate"
+		method="POST" modelAttribute="formUserUpdate">
+		<div class="col s12 m6 offset-m3">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">face</i>
+				<form:input type="text" path="firstName" name="firstName"
+					id="firstName" autocomplete="off" length="40" maxlength="40"
+					required="required" />
+				<label for="firstName">Imię *</label>
+			</div>
+		</div>
+		<div class="col s12 m6 offset-m3">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">face</i>
+				<form:input type="text" path="lastName" name="lastName"
+					id="lastName" autocomplete="off" length="40" maxlength="40" />
+				<label for="lastName">Nazwisko</label>
+			</div>
+		</div>
+		<div class="col s12 m6 offset-m3">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">phone</i>
+				<form:input type="tel" path="phoneNumber" name="phoneNumber"
+					id="phoneNumber" autocomplete="off" length="11" maxlength="11"
+					pattern="(?=.*\d).{9,}" />
+				<label for="phoneNumber">Numer telefonu</label>
+			</div>
+		</div>
+		<div class="row center-align">
+			<div class="input-field col s12">
+				<button class="btn btn-flat waves-effect waves-green" type="submit"
+					name="submit">
+					Zapisz<i class="material-icons right">send</i>
+				</button>
+			</div>
+		</div>
 	</form:form>
-</body>
-</html>
+</div>
+
+<%@include file="../mainFooter.jsp"%>

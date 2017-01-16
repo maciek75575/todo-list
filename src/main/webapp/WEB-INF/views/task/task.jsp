@@ -52,8 +52,8 @@
 					        			<td colspan=2>${task.description}</td>
 					        		</tr>
 					        		<tr>
-					        			<td></td>
-					        			<td class="right-align">Ostatnia edycja: <fmt:formatDate value="${task.editDate}" pattern="dd.MM.yyyy" /></td>
+					        			<td><a class="btn-floating green waves-effect waves-light" href="/task/edit-${task.id}"><i class="material-icons">mode_edit</i></a></td>
+					        			<td class="right-align"><c:if test="${task.editDate != null}">Ostatnia edycja: <fmt:formatDate value="${task.editDate}" pattern="dd.MM.yyyy" /></c:if></td>
 					        		</tr>
 					        	</tbody>
 					        </table>

@@ -5,34 +5,34 @@
 <%@include file="../mainHeader.jsp" %>
 
 <div class="row">
-	<form:form class="col s12" method="POST" modelAttribute="formCategoryColor">
+	<form:form class="col s12 m8 offset-m2 l6 offset-l3" method="POST" modelAttribute="formCategoryColor">
       	<div class="row">
-			<div class="input-field col s4 offset-s4">
+			<div class="input-field col s12">
 				<form:input type="text" path="primaryColor" name="primaryColor" id="primaryColor" length="100" maxlength="100" class="validate" required="required" />
 				<label for="primaryColor">Kolor podstawowy</label>
 			</div>
 		</div>
       	<div class="row">
-			<div class="input-field col s4 offset-s4">
+			<div class="input-field col s12">
 				<form:input type="text" path="primaryCode" name="primaryCode" id="primaryCode" length="7" maxlength="7" pattern="#?[0-9A-Fa-f]{6}" class="validate" required="required" />
 				<label for="primaryCode">Kod koloru</label>
 			</div>
 		</div>
       	<div class="row">
-			<div class="input-field col s4 offset-s4">
+			<div class="input-field col s12">
 				<form:input type="text" path="secondaryColor" name="secondaryColor" id="secondaryColor" length="100" maxlength="100" class="validate" required="required" />
 				<label for="secondaryColor">Kolor dodatkowy</label>
 			</div>
 		</div>
       	<div class="row">
-			<div class="input-field col s4 offset-s4">
+			<div class="input-field col s12">
 				<form:input type="text" path="secondaryCode" name="secondaryCode" id="secondaryCode" length="7" maxlength="7" pattern="#?[0-9A-Fa-f]{6}" class="validate" required="required" />
 				<label for="secondaryCode">Kod koloru</label>
 			</div>
 		</div>
       	<div class="row center-align">
-			<div class="input-field col s4 offset-s4">
-				<button class="btn waves-effect waves-light" type="submit" name="submit">
+			<div class="input-field col s12">
+				<button class="btn btn-flat waves-effect waves-green" type="submit" name="submit">
 					Zapisz zmiany<i class="material-icons right">send</i>
   				</button>
 			</div>

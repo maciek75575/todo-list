@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,42 +20,72 @@
 	<header>
 		<c:url value="/logout" var="logoutUrl" />
 		<form id="logout" action="${logoutUrl}" method="post">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 		</form>
-		
+
 		<ul id="dropdown1" class="dropdown-content">
-		  <li><a href="#!">one</a></li>
-		  <li><a href="#!">two</a></li>
-		  <li class="divider"></li>
-		  <li><a href="#!">three</a></li>
+			<li><a href="/admin/userList">Użytkownicy</a></li>
+			<li><a href="/catColor">Kolory kategorii</a></li>
 		</ul>
-	
+
+		<ul id="slide-out" class="side-nav">
+			<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
+				<li><a href="/signup">Rejestracja</a></li>
+				<li><a href="/login">Logowanie</a></li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_USER')">
+				<li><a href="/task"><i class="material-icons left">assignment_turned_in</i>Zadania</a></li>
+				<li><a href="/category"><i class="material-icons left">local_offer</i>Kategorie</a></li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<li><a href="/admin/userList"><i class="material-icons left">settings</i>Użytkownicy</a></li>
+				<li><a href="/catColor"><i class="material-icons left">settings</i>Kolory kategorii</a></li>
+			</sec:authorize>
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<li><a href="/user/profile"><i class="material-icons left">account_circle</i>Profil</a></li>
+				<li><a
+					href="javascript:document.getElementById('logout').submit()"><i
+						class="material-icons left">power_settings_new</i>Wyloguj</a></li>
+			</c:if>
+		</ul>
+
 		<div class="navbar-fixed">
 			<nav>
 				<div class="nav-wrapper light-green darken-1">
 					<a href="/" class="brand-logo center">ToDo-List</a>
-					<ul class="left hide-on-small-only">
+					<ul class="left hide-on-large-only">
+						<li><a href="#" data-activates="slide-out"
+							class="button-collapse"><i class="material-icons left">menu</i></a>
+						</li>
+					</ul>
+					<ul class="left hide-on-med-and-down">
 						<sec:authorize access="hasRole('ROLE_USER')">
 							<li><a href="/task"><i class="material-icons left">assignment_turned_in</i>Zadania</a></li>
 							<li><a href="/category"><i class="material-icons left">local_offer</i>Kategorie</a></li>
 						</sec:authorize>
 					</ul>
-					<ul class="right hide-on-small-only">
+					<ul class="right hide-on-med-and-down">
 						<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
 							<li><a href="/signup">Rejestracja</a></li>
 							<li><a href="/login">Logowanie</a></li>
 						</sec:authorize>
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<li><a class="dropdown-button" data-activates="dropdown1"><i class="material-icons left">settings</i>Admin<i class="material-icons right">arrow_drop_down</i></a></li>
+							<li><a class="dropdown-button" data-activates="dropdown1"><i
+									class="material-icons left">settings</i>Admin<i
+									class="material-icons right">arrow_drop_down</i></a></li>
 						</sec:authorize>
 						<c:if test="${pageContext.request.userPrincipal.name != null}">
-							<li><a href="/user/profile"><i class="material-icons left">account_circle</i>Profil</a></li>
-							<li><a href="javascript:document.getElementById('logout').submit()"><i class="material-icons left">power_settings_new</i>Wyloguj</a></li>
+							<li><a href="/user/profile"><i
+									class="material-icons left">account_circle</i>Profil</a></li>
+							<li><a
+								href="javascript:document.getElementById('logout').submit()"><i
+									class="material-icons left">power_settings_new</i>Wyloguj</a></li>
 						</c:if>
 					</ul>
 				</div>
 			</nav>
 		</div>
 	</header>
-	
+
 	<main style="height:100%;">

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import pl.maciejk.todoList.dto.AuthorityAddDto;
 import pl.maciejk.todoList.dto.UserEditDto;
 import pl.maciejk.todoList.model.Authority;
 import pl.maciejk.todoList.model.User;
@@ -28,16 +29,21 @@ public class AdminController {
 	
 	@Autowired
 	private AuthorityService authorityService;
-	
+
 	@ModelAttribute("formUserEdit")
 	public UserEditDto getFormEdit() {
 		return new UserEditDto();
+	}
+	
+	@ModelAttribute("formAuthorityAdd")
+	public AuthorityAddDto getFormAuth() {
+		return new AuthorityAddDto();
 	}
 
 	@RequestMapping(value = "/userList")
 	public String users(Model model) {
 		model.addAttribute("users", userService.findAll());
-		return "admin/userList";
+		return "/admin/userList";
 	}
 
 	@RequestMapping(value = "/userDetails-{id}")
@@ -48,7 +54,7 @@ public class AdminController {
 			model.addAttribute("user", userService.findById(id));
 			model.addAttribute("roleUser", authorityService.roleUser(userService.findById(id)));
 			model.addAttribute("roleAdmin", authorityService.roleAdmin(userService.findById(id)));
-			return "admin/userDetails";
+			return "/admin/userDetails";
 		}
 	}
 
@@ -59,7 +65,7 @@ public class AdminController {
 		else {
 			User user = userService.findById(id);
 			model.addAttribute("formUserEdit", user);
-			return "admin/userEdit";
+			return "/admin/userEdit";
 		}
 	}
 
@@ -68,7 +74,7 @@ public class AdminController {
 		if (!userService.doesExist(id))
 			return "redirect:/404";
 		else if (result.hasErrors())
-			return "admin/userEdit";
+			return "/admin/userEdit";
 		else {
 			User user = userService.findById(id);
 			if (!user.getLogin().equals(form.getLogin()) && (userService.isLoginOccupied(form.getLogin()))) return "userEdit";
@@ -101,13 +107,25 @@ public class AdminController {
 		return "redirect:userDetails-{userId}";
 	}
 	
-	@RequestMapping(value = "/authorityAdd-{userId}-{authority}")
-	public String authorityAdd(@PathVariable("userId") Long userId, @PathVariable("authority") String authority) {
-		User user = userService.findById(userId);
-		Authority auth = new Authority();
-		auth.setAuthority(authority);
-		auth.setUser(user);
-		authorityService.addOrUpdate(auth);
-		return "redirect:userDetails-{userId}";
+	@RequestMapping(value = "/authorityAdd-{userId}", method = RequestMethod.GET)
+	public String authorityAddForm(@PathVariable("userId") Long userId) {
+		if (!userService.doesExist(userId))
+			return "redirect:/404";
+		else
+			return "/admin/authorityAdd";
+	}
+	
+	@RequestMapping(value = "/authorityAdd-{userId}", method = RequestMethod.POST)
+	public String authorityAdd(@PathVariable("userId") Long userId, @ModelAttribute("formAuthorityAdd") @Valid AuthorityAddDto form, BindingResult result) {
+		if (!userService.doesExist(userId))
+			return "redirect:/404";
+		else {
+			User user = userService.findById(userId);
+			Authority auth = new Authority();
+			auth.setAuthority(form.getAuthority());
+			auth.setUser(user);
+			authorityService.addOrUpdate(auth);
+			return "redirect:userDetails-{userId}";
+		}
 	}
 }

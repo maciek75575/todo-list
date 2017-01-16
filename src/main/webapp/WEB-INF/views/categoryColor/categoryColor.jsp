@@ -33,7 +33,6 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<a class="waves-effect waves-light btn" href="/">Strona główna<i class="material-icons right">subdirectory_arrow_left</i></a>
 	</div>
 </div>
 

@@ -59,12 +59,6 @@ public class User implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Category> categories;
-	
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "invitingUser", fetch = FetchType.LAZY)
-	private List<Friendship> invitedUsers;
-	
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "invitedUser", fetch = FetchType.LAZY)
-	private List<Friendship> invitations;
 
 	public Long getId() {
 		return id;
@@ -161,22 +155,4 @@ public class User implements Serializable {
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
-
-	public List<Friendship> getInvitedUsers() {
-		return invitedUsers;
-	}
-
-	public void setInvitedUsers(List<Friendship> invitedUsers) {
-		this.invitedUsers = invitedUsers;
-	}
-
-	public List<Friendship> getInvitations() {
-		return invitations;
-	}
-
-	public void setInvitations(List<Friendship> invitations) {
-		this.invitations = invitations;
-	}
-
-
 }

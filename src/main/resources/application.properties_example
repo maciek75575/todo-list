@@ -1,6 +1,6 @@
 dataSource.driverClassName=com.mysql.jdbc.Driver
 dataSource.url=jdbc:mysql://server:port/dbName?UseUnicode=true&amp;characterEncoding=utf8
-dataSource.username=usermane
+dataSource.username=username
 dataSource.password=password
 
 mailSender.host=smtp.gmail.com

@@ -43,11 +43,15 @@
 				<tr>
 					<th class="right-align">Poziom uprawnień:</th>
 					<td><c:if test="${roleUser != null}">ROLE_USER <a
-								href="authorityRemove-${user.id}-${roleUser.id}">Usuń</a>
+								href="/admin/authorityRemove-${user.id}-${roleUser.id}"><i class="material-icons red-text">delete_forever</i></a>
 							<br />
 						</c:if> <c:if test="${roleAdmin != null}">ROLE_ADMIN <a
-								href="authorityRemove-${user.id}-${roleAdmin.id}">Usuń</a>
-						</c:if></td>
+								href="/admin/authorityRemove-${user.id}-${roleAdmin.id}"><i class="material-icons red-text">delete_forever</i></a>
+						</c:if>
+						<br />
+						<a class="btn btn-flat waves-effect waves-green blue-text"
+						href="/admin/authorityAdd-${user.id}"><i
+							class="material-icons blue-text left">add</i>Dodaj</a></td>
 				</tr>
 				<tr>
 					<th class="right-align">Data rejestracji:</th>

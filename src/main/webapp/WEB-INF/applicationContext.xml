@@ -67,7 +67,7 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:application.properties" />
 	</bean>
-
+	
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="${mailSender.host}" />
 		<property name="port" value="${mailSender.port}" />

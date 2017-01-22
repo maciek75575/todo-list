@@ -128,7 +128,8 @@ public class TaskController {
 			task.setAddDate(date);
 			task.setImportant(form.isImportant());
 			taskService.addOrUpdate(task);
-			return "redirect:/task";
+			SimpleDateFormat format = new SimpleDateFormat("ddMMyyyy"); 
+			return "redirect:/task/"+format.format(form.getTaskDate());
 		}
 	}
 
@@ -167,7 +168,8 @@ public class TaskController {
 			task.setEditDate(date);
 			task.setImportant(form.isImportant());
 			taskService.addOrUpdate(task);
-			return "redirect:/task";
+			SimpleDateFormat format = new SimpleDateFormat("ddMMyyyy"); 
+			return "redirect:/task/"+format.format(form.getTaskDate());
 		}
 	}
 	

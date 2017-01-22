@@ -10,7 +10,7 @@
       	<div class="row">
 			<div class="input-field col s12">
 				<form:input type="text" path="title" name="title" id="title" length="255" maxlength="255" class="validate" required="required" />
-				<label for="title">Tytuł</label>
+				<label for="title">Tytuł *</label>
 			</div>
 		</div>
       	<div class="row">
@@ -22,7 +22,7 @@
       	<div class="row">
 			<div class="input-field col s12">
 				<form:input type="date" path="taskDate" name="taskDate" id="taskDate" class="datepicker" required="required" />
-				<label for="taskDate">Data</label>
+				<label for="taskDate">Data *</label>
 			</div>
 		</div>
       	<div class="row">
@@ -40,7 +40,7 @@
 			        	<option id="category${category.id}" value="${category.id}" <c:if test="${formTask.category.id == category.id}">selected="selected"</c:if>>${category.name}</option>
 			        </c:forEach>
 			    </select>
-			    <label>Kategoria</label>
+			    <label>Kategoria *</label>
 			</div>
 		</div>
       	<div class="row center-align">

@@ -42,10 +42,10 @@
 				</tr>
 				<tr>
 					<th class="right-align">Poziom uprawnień:</th>
-					<td><c:if test="${roleUser != null}">ROLE_USER <a
+					<td><c:if test="${roleUser != null}">Użytkownik <a
 								href="/admin/authorityRemove-${user.id}-${roleUser.id}"><i class="material-icons red-text">delete_forever</i></a>
 							<br />
-						</c:if> <c:if test="${roleAdmin != null}">ROLE_ADMIN <a
+						</c:if> <c:if test="${roleAdmin != null}">Administrator <a
 								href="/admin/authorityRemove-${user.id}-${roleAdmin.id}"><i class="material-icons red-text">delete_forever</i></a>
 						</c:if>
 						<br />

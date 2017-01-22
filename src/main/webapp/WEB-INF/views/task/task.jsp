@@ -35,7 +35,7 @@
 				<c:forEach var="task" items="${tasks}">
 				    <li>
 				        <div class="collapsible-header no-border ${task.category.categoryColor.primaryColor}">
-				        	<div class="col s7">${task.title}</div>
+				        	<div class="col s7"><c:if test="${task.important}"><i class="material-icons left">priority_high</i></c:if>${task.title}</div>
 				        	<div class="col s5 right-align"><fmt:formatDate value="${task.taskDate}" pattern="dd.MM.yyyy" /></div>
 				        </div>
 				        <div class="collapsible-body no-border ${task.category.categoryColor.secondaryColor}" style="padding:0 1rem;">

@@ -10,7 +10,7 @@
       	<div class="row">
 			<div class="input-field col s12">
 				<form:input type="text" path="name" name="name" id="name" length="100" maxlength="100" class="validate" required="required" />
-				<label for="name">Nazwa</label>
+				<label for="name">Nazwa *</label>
 			</div>
 		</div>
       	<div class="row">

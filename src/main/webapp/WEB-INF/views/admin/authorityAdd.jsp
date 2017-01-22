@@ -9,8 +9,12 @@
 	<form:form class="col s12" method="POST" modelAttribute="formAuthorityAdd">
       	<div class="row">
 			<div class="input-field col s12 m8 offset-m2 l4 offset-l4">
-				<form:input type="text" path="authority" name="authority" id="authority" length="100" maxlength="100" required="required" />
-				<label for="name">Uprawnienie</label>
+			    <select path="authority" name="authority" id="authority" required="required">
+			        <option value="" disabled="disabled" selected="selected">Wybierz uprawnienie</option>
+			        <option value="ROLE_USER">Użytkownik</option>
+			        <option value="ROLE_ADMIN">Administrator</option>
+			    </select>
+			    <label>Kategoria</label>
 			</div>
 		</div>
       	<div class="row center-align">
@@ -23,6 +27,10 @@
 	</form:form>
 </div>
 
-<script src="/script/catColorPicker.js"></script>
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+});
+</script>
 
 <%@include file="../mainFooter.jsp" %>
